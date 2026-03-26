@@ -3,97 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>커피 주문</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+<title>카페 메뉴</title>
 
 <style>
 body {
     margin: 0;
-    font-family: 'Nanum Gothic', sans-serif;
-    background: linear-gradient(to right, #d7ccc8, #efebe9);
+    font-family: Arial;
+    background: #f3f1ed;
 }
 
-/* 컨테이너 */
+/* 전체 */
 .container {
-    max-width: 400px;
-    margin: 30px auto;
-    background: white;
+    max-width: 500px;
+    margin: auto;
     padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* 제목 */
-h1 {
+.title {
     text-align: center;
-    color: #5d4037;
-}
-
-/* 입력 */
-select, input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-}
-
-/* 버튼 */
-button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    border-radius: 10px;
-    border: none;
-    background: #795548;
-    color: white;
-    font-size: 16px;
+    font-size: 28px;
     font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    color: #5d4037;
+    margin-bottom: 20px;
 }
 
-button:hover {
-    background: #5d4037;
-}
-
-/* 장바구니 */
-.cart {
-    margin-top: 20px;
-}
-
-.cart-item {
+/* 메뉴 카드 */
+.menu-item {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 12px;
     display: flex;
     justify-content: space-between;
-    background: #f5f5f5;
-    padding: 10px;
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 14px;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* 총 금액 */
-.total {
-    margin-top: 15px;
+/* 메뉴 이름 */
+.name {
+    font-size: 18px;
+}
+
+/* 가격 */
+.price {
     font-weight: bold;
-    text-align: right;
+    color: #795548;
 }
 
-/* 모바일 최적화 */
+/* 모바일 */
 @media (max-width: 480px) {
-    .container {
-        margin: 10px;
-        padding: 15px;
+    .title {
+        font-size: 24px;
     }
 
-    h1 {
-        font-size: 20px;
-    }
-
-    button {
-        font-size: 14px;
+    .name {
+        font-size: 16px;
     }
 }
 </style>
@@ -102,115 +67,19 @@ button:hover {
 <body>
 
 <div class="container">
-    <h1>☕ Coffee Order</h1>
+    <div class="title">☕ MENU</div>
 
-    <select id="coffee">
-        <option value="3000">아메리카노 (3000원)</option>
-        <option value="4000">카페라떼 (4000원)</option>
-        <option value="4500">카푸치노 (4500원)</option>
-    </select>
+    <div class="menu-item"><div class="name">아메리카노 (아아)</div><div class="price">3000원</div></div>
+    <div class="menu-item"><div class="name">카페라떼</div><div class="price">4000원</div></div>
+    <div class="menu-item"><div class="name">연유라떼</div><div class="price">4500원</div></div>
+    <div class="menu-item"><div class="name">카페모카</div><div class="price">4500원</div></div>
+    <div class="menu-item"><div class="name">아이스티</div><div class="price">3500원</div></div>
+    <div class="menu-item"><div class="name">아샷추</div><div class="price">4000원</div></div>
+    <div class="menu-item"><div class="name">해장주스</div><div class="price">5000원</div></div>
+    <div class="menu-item"><div class="name">아인슈페너</div><div class="price">5000원</div></div>
+    <div class="menu-item"><div class="name">밀크티</div><div class="price">4500원</div></div>
 
-    <input type="number" id="qty" value="1" min="1">
-
-    <button onclick="addCart()">장바구니 담기</button>
-
-    <div class="cart" id="cart"></div>
-
-    <div class="total" id="total">총 금액: 0원</div>
-
-    <button onclick="checkout()">주문하기</button>
 </div>
-
-<script>
-let cart = [];
-
-function addCart() {
-    const select = document.getElementById("coffee");
-    const name = select.options[select.selectedIndex].text;
-    const price = parseInt(select.value);
-    const qty = parseInt(document.getElementById("qty").value);
-
-    cart.push({ name, price, qty });
-
-    renderCart();
-}
-
-function renderCart() {
-    const cartDiv = document.getElementById("cart");
-    cartDiv.innerHTML = "";
-
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        total += item.price * item.qty;
-
-        cartDiv.innerHTML += `
-            <div class="cart-item">
-                <span>${item.name} x ${item.qty}</span>
-                <span>${item.price * item.qty}원</span>
-            </div>
-        `;
-    });
-
-    document.getElementById("total").innerText = "총 금액: " + total + "원";
-}
-
-function checkout() {
-    if (cart.length === 0) {
-        alert("장바구니가 비어있습니다!");
-        return;
-    }
-
-    alert("주문 완료!");
-    cart = [];
-    renderCart();
-}
-</script>
 
 </body>
 </html>
-
-
-/* 전체 화면 꽉 채우기 */
-body {
-    margin: 0;
-    font-family: 'Nanum Gothic', sans-serif;
-}
-
-/* 컨테이너 */
-.container {
-    max-width: 420px;
-    margin: auto;
-    min-height: 100vh;
-    border-radius: 0;
-    padding: 20px;
-}
-
-/* 입력 요소 (터치 편하게) */
-select, input {
-    padding: 15px;
-    font-size: 18px;
-}
-
-/* 버튼 크게 */
-button {
-    padding: 15px;
-    font-size: 18px;
-}
-
-/* 장바구니 */
-.cart-item {
-    font-size: 16px;
-    padding: 15px;
-}
-
-/* 모바일 화면 */
-@media (max-width: 480px) {
-    body {
-        background: white;
-    }
-
-    .container {
-        box-shadow: none;
-    }
-}
